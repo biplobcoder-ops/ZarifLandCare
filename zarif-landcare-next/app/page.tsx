@@ -1,69 +1,100 @@
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, FileText, Newspaper, Users, Ticket } from "lucide-react";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="bg-brand-500 shadow-md">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">🌿</span>
+            <h1 className="text-xl font-bold text-white">
+              জারিফ ল্যান্ডকেয়ার সেন্টার
+            </h1>
+          </div>
+          <Link
+            href="/admin/dashboard"
+            className="bg-white text-brand-600 px-4 py-2 rounded-button text-sm font-medium hover:bg-gray-100 transition-all"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            অ্যাডমিন প্যানেল →
+          </Link>
         </div>
-      </main>
+      </header>
+
+      {/* Hero */}
+      <section className="max-w-7xl mx-auto px-6 py-16 text-center">
+        <h2 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">
+          🌿 জারিফ ল্যান্ডকেয়ার সেন্টার
+        </h2>
+        <p className="text-lg text-text-secondary max-w-2xl mx-auto mb-8">
+          নির্ভুল দলিল প্রস্তুত এবং রেজিস্ট্রেশনের পূর্ণ সহায়তার জন্য একটি
+          নির্ভরযোগ্য প্রতিষ্ঠান
+        </p>
+        <Link
+          href="/admin/dashboard"
+          className="zarif-btn-primary inline-flex items-center gap-2"
+        >
+          অ্যাডমিন প্যানেলে যান
+          <ArrowRight size={18} />
+        </Link>
+      </section>
+
+      {/* Features */}
+      <section className="max-w-7xl mx-auto px-6 pb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Link
+            href="/admin/deeds/pending"
+            className="zarif-card zarif-card-hover p-6 text-center"
+          >
+            <div className="w-14 h-14 mx-auto rounded-full bg-brand-100 flex items-center justify-center mb-4">
+              <FileText className="text-brand-600" size={24} />
+            </div>
+            <h3 className="font-bold text-text-primary mb-2">দলিল ম্যানেজমেন্ট</h3>
+            <p className="text-sm text-text-secondary">অপেক্ষমাণ ও অনুমোদিত দলিল</p>
+          </Link>
+
+          <Link
+            href="/admin/khatian/pending"
+            className="zarif-card zarif-card-hover p-6 text-center"
+          >
+            <div className="w-14 h-14 mx-auto rounded-full bg-blue-100 flex items-center justify-center mb-4">
+              <Newspaper className="text-blue-600" size={24} />
+            </div>
+            <h3 className="font-bold text-text-primary mb-2">খতিয়ান</h3>
+            <p className="text-sm text-text-secondary">খতিয়ান ব্যবস্থাপনা</p>
+          </Link>
+
+          <Link
+            href="/admin/users"
+            className="zarif-card zarif-card-hover p-6 text-center"
+          >
+            <div className="w-14 h-14 mx-auto rounded-full bg-orange-100 flex items-center justify-center mb-4">
+              <Users className="text-orange-600" size={24} />
+            </div>
+            <h3 className="font-bold text-text-primary mb-2">ইউজার</h3>
+            <p className="text-sm text-text-secondary">সব ইউজার ব্যবস্থাপনা</p>
+          </Link>
+
+          <Link
+            href="/admin/tickets/pending"
+            className="zarif-card zarif-card-hover p-6 text-center"
+          >
+            <div className="w-14 h-14 mx-auto rounded-full bg-purple-100 flex items-center justify-center mb-4">
+              <Ticket className="text-purple-600" size={24} />
+            </div>
+            <h3 className="font-bold text-text-primary mb-2">সাপোর্ট টিকেট</h3>
+            <p className="text-sm text-text-secondary">টিকেট ব্যবস্থাপনা</p>
+          </Link>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-brand-900 text-white py-8 mt-auto">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <p className="text-sm">© 2026 জারিফ ল্যান্ডকেয়ার সেন্টার। সর্বস্বত্ব সংরক্ষিত।</p>
+        </div>
+      </footer>
     </div>
   );
 }
