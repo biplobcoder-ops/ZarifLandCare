@@ -13,10 +13,44 @@ export default function Pagination({
   totalPages,
   onPageChange,
 }: PaginationProps) {
-  const pages = Array.from({ length: Math.min(totalPages, 10) }, (_, i) => i + 1);
+  if (totalPages <= 1) return null;
+
+  // Generate visible page numbers (max 5 around current)
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    const maxVisible = 5;
+
+    if (totalPages <= maxVisible) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+
+      let start = Math.max(2, currentPage - 1);
+      let end = Math.min(totalPages - 1, currentPage + 1);
+
+      if (currentPage <= 3) {
+        start = 2;
+        end = maxVisible - 1;
+      }
+      if (currentPage >= totalPages - 2) {
+        start = totalPages - maxVisible + 2;
+        end = totalPages - 1;
+      }
+
+      if (start > 2) pages.push("...");
+      for (let i = start; i <= end; i++) pages.push(i);
+      if (end < totalPages - 1) pages.push("...");
+
+      pages.push(totalPages);
+    }
+
+    return pages;
+  };
+
+  const pages = getPageNumbers();
 
   return (
-    <div className="flex items-center justify-center gap-2 mt-6">
+    <div className="flex items-center justify-center gap-2 mt-6 flex-wrap">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
@@ -25,22 +59,31 @@ export default function Pagination({
         <ChevronLeft size={16} />
       </button>
 
-      {pages.map((p) => (
-        <button
-          key={p}
-          onClick={() => onPageChange(p)}
-          className={`
-            w-9 h-9 rounded-full text-sm font-medium transition-all
-            ${
-              currentPage === p
-                ? "bg-brand-500 text-white shadow-md"
-                : "border border-border text-text-secondary hover:bg-gray-50"
-            }
-          `}
-        >
-          {p}
-        </button>
-      ))}
+      {pages.map((p, idx) =>
+        p === "..." ? (
+          <span
+            key={`dot-${idx}`}
+            className="w-9 h-9 flex items-center justify-center text-text-muted text-sm"
+          >
+            ...
+          </span>
+        ) : (
+          <button
+            key={p}
+            onClick={() => onPageChange(p as number)}
+            className={`
+              w-9 h-9 rounded-full text-sm font-medium transition-all
+              ${
+                currentPage === p
+                  ? "bg-brand-500 text-white shadow-md"
+                  : "border border-border text-text-secondary hover:bg-gray-50"
+              }
+            `}
+          >
+            {p}
+          </button>
+        )
+      )}
 
       <button
         onClick={() => onPageChange(currentPage + 1)}
